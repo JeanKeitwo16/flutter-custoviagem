@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Carro extends StatelessWidget {
-  const Carro({super.key});
+class CalculoTela extends StatelessWidget {
+  const CalculoTela({super.key});
 
   @override
   Widget build(BuildContext context) {
