@@ -67,7 +67,7 @@ class _DestinoTelaState extends State<DestinoTela> {
                         setState(() {
                           listaDestinos.add(Destinos(
                               nomeDestino: nomeDestinoController.text,
-                              distanciaDestino: double.parse(nomeDestinoController.text),));
+                              distanciaDestino: double.parse(distanciaDestinoController.text),));
                         });
                         Navigator.pop(context);
                         nomeDestinoController.clear();
