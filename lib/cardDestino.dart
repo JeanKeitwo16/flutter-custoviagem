@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CardCarro extends StatelessWidget {
+class CardDestino extends StatelessWidget {
   final String nomeDestino;
   final double distanciaDestino;
   final Function() onRemove;
 
-  const CardCarro({
+  const CardDestino({
     required this.nomeDestino,
     required this.distanciaDestino,
     required this.onRemove

@@ -3,14 +3,14 @@ import 'package:custoviagem/model/destinos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class CarroTela extends StatefulWidget {
-  const CarroTela({super.key});
+class DestinoTela extends StatefulWidget {
+  const DestinoTela({super.key});
 
   @override
-  State<CarroTela> createState() => _CarroTelaState();
+  State<DestinoTela> createState() => _DestinoTelaState();
 }
 
-class _CarroTelaState extends State<CarroTela> {
+class _DestinoTelaState extends State<DestinoTela> {
    List<Destinos> listaDestinos = [
     Destinos(nomeDestino: "Durazno", distanciaDestino: 21.5),
   ];
@@ -20,7 +20,7 @@ class _CarroTelaState extends State<CarroTela> {
     });
   }
   final TextEditingController nomeDestinoController = TextEditingController();
-  final TextEditingController autonomiaController = TextEditingController();
+  final TextEditingController distanciaDestinoController = TextEditingController();
   void openModal() {
     showModalBottomSheet(
         context: context,
@@ -38,17 +38,17 @@ class _CarroTelaState extends State<CarroTela> {
                   ),
                   SizedBox(height: 25),
                   TextField(
-                    controller: nomeCarroController,
+                    controller: nomeDestinoController,
                     decoration: InputDecoration(label: Text("Nome do Destino")),
                   ),
                   TextField(
-                    controller: autonomiaController,
+                    controller: distanciaDestinoController,
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly,
                     ],
                     decoration: InputDecoration(
-                      label: Text("Autonomia"),
+                      label: Text("Distância do Destino"),
                     ),
                   ),
                   SizedBox(height: 35),
@@ -65,13 +65,13 @@ class _CarroTelaState extends State<CarroTela> {
                           minimumSize: WidgetStatePropertyAll(Size(300, 50))),
                       onPressed: () {
                         setState(() {
-                          listaCarros.add(Carros(
-                              nomeCarro: nomeCarroController.text,
-                              autonomia: double.parse(autonomiaController.text),));
+                          listaDestinos.add(Destinos(
+                              nomeDestino: nomeDestinoController.text,
+                              distanciaDestino: double.parse(nomeDestinoController.text),));
                         });
                         Navigator.pop(context);
-                        nomeCarroController.clear();
-                        autonomiaController.clear();
+                        nomeDestinoController.clear();
+                        nomeDestinoController.clear();
                       },
                       child: Text("Cadastrar")),
                 ],
@@ -84,11 +84,11 @@ class _CarroTelaState extends State<CarroTela> {
  Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemCount: listaCarros.length,
+        itemCount: listaDestinos.length,
         itemBuilder: (context, index) {
-          return CardCarro(
-            nomeCarro: listaCarros[index].nomeCarro,
-            autonomia: listaCarros[index].autonomia,
+          return CardDestino(
+            nomeDestino: listaDestinos[index].nomeDestino,
+            distanciaDestino: listaDestinos[index].distanciaDestino,
             onRemove: () => removerItem(index),
           );
         },
