@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-
 class Combustivel {
-  String precoCombustivel="";
+  double precoCombustivel;
   String tipoCombustivel="";
   DateTime dataPreco;
   Combustivel(

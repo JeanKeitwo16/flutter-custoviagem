@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Destinos {
   String nomeDestino="";
   double distanciaDestino=0;

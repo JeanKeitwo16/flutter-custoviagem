@@ -4,21 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class DestinoTela extends StatefulWidget {
-  const DestinoTela({super.key});
+  final List<Destinos> listaDestinos;
+  final Function(int) onRemove;
+  final Function(Destinos) onInsert;
+  const DestinoTela({super.key, required this.onInsert, required this.onRemove, required this.listaDestinos});
 
   @override
   State<DestinoTela> createState() => _DestinoTelaState();
 }
 
 class _DestinoTelaState extends State<DestinoTela> {
-   List<Destinos> listaDestinos = [
-    Destinos(nomeDestino: "Durazno", distanciaDestino: 21.5),
-  ];
-  void removerItem(int index) {
-    setState(() {
-      listaDestinos.removeAt(index);
-    });
-  }
   final TextEditingController nomeDestinoController = TextEditingController();
   final TextEditingController distanciaDestinoController = TextEditingController();
   void openModal() {
@@ -44,9 +39,6 @@ class _DestinoTelaState extends State<DestinoTela> {
                   TextField(
                     controller: distanciaDestinoController,
                     keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
                     decoration: InputDecoration(
                       label: Text("Distância do Destino"),
                     ),
@@ -64,14 +56,10 @@ class _DestinoTelaState extends State<DestinoTela> {
                           ),
                           minimumSize: WidgetStatePropertyAll(Size(300, 50))),
                       onPressed: () {
-                        setState(() {
-                          listaDestinos.add(Destinos(
-                              nomeDestino: nomeDestinoController.text,
-                              distanciaDestino: double.parse(distanciaDestinoController.text),));
-                        });
+                        widget.onInsert(Destinos(nomeDestino: nomeDestinoController.text, distanciaDestino: double.parse(distanciaDestinoController.text)));
                         Navigator.pop(context);
                         nomeDestinoController.clear();
-                        nomeDestinoController.clear();
+                        distanciaDestinoController.clear();
                       },
                       child: Text("Cadastrar")),
                 ],
@@ -84,12 +72,12 @@ class _DestinoTelaState extends State<DestinoTela> {
  Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemCount: listaDestinos.length,
+        itemCount: widget.listaDestinos.length,
         itemBuilder: (context, index) {
           return CardDestino(
-            nomeDestino: listaDestinos[index].nomeDestino,
-            distanciaDestino: listaDestinos[index].distanciaDestino,
-            onRemove: () => removerItem(index),
+            nomeDestino: widget.listaDestinos[index].nomeDestino,
+            distanciaDestino: widget.listaDestinos[index].distanciaDestino,
+            onRemove: () => widget.onRemove(index),
           );
         },
       ),
